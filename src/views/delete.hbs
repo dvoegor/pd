@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>{{title}}</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<div class="container mt-md-5 col-10">
+    <a href="/" class="badge badge-info">Вернуться</a>
+    <h3>Удаление</h3>
+    <form method="POST">
+        <input type="hidden" name="id" value="{{row.id}}"/>
+        <div class="form-group">
+            <label for="question">Формула смысла</label>
+            <input type="text" name="question" class="form-control" id="question" value="{{row.question}}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="answer">Знак</label>
+            <input type="text" name="answer" class="form-control" id="answer" value="{{row.answer}}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="function">Функция</label>
+            <input type="text" name="function" class="form-control" id="function" value="{{row.function}}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="method">Способ</label>
+            <input type="text" name="method" class="form-control" id="method" value="{{row.method}}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="subjectArea">Область</label>
+            <input type="text" name="subjectArea" class="form-control" id="subjectArea" value="{{row.subjectArea}}" disabled>
+        </div>
+        <button type="submit" class="btn btn-danger">Удалить</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+<html>

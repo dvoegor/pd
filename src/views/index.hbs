@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="icon" type="image/png"
+          href="https://www.pngitem.com/pimgs/m/114-1145783_transparent-book-vector-png-book-icon-vector-png.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{title}}</title>
+</head>
+
+<body>
+<nav class="indigo lighten-5">
+    {{#if success}}
+        <form class="clear logs" action="logout" method="post">
+            <button class="btn waves-effect waves-light blue-grey lighten-1" type="submit">Выйти
+            </button>
+        </form>
+    {{else}}
+        <form class="clear logs" action="loginAuth" method="post">
+            <button class="btn waves-effect waves-light green" type="submit">Войти
+            </button>
+        </form>
+    {{/if}}
+</nav>
+<div class="container">
+    <h3 class="center">Просмотр базы данных фигур знания</h3>
+    <blockquote>
+        База данных содержит <span class="bold">{{size}}</span> фигур знания.<br>
+        Фигуры знания могут содержать неточности в значениях полей "Функция", "Способ" и "Область".
+    </blockquote>
+    <div class="row">
+        <form class="col s12" method="get">
+            <div class="row">
+                <div class="input-field col s9">
+                    <input placeholder="Введите формулу" id="question" type="text" class="validate" name="question">
+                    <label for="first_name">Формула смысла</label>
+                </div>
+                <div class="input-field col s3">
+                    <input placeholder="Введите знак" id="answer" type="text" class="validate" name="answer">
+                    <label for="first_name">Знак</label>
+                </div>
+            </div>
+            <div class="row">
+                <label>Функция</label>
+                <p>
+                    <label>
+                        <input name="func" value="" type="radio" checked/>
+                        <span>Рецепт/Ретушь</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="func" value="Рецепт" id="Рецепт" type="radio"/>
+                        <span>Рецепт</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="func" value="Ретушь" id="Ретушь" type="radio"/>
+                        <span>Ретушь</span>
+                    </label>
+                </p>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <select name="method">
+                        <option value="" disabled selected>Выберите способ</option>
+                        {{#each sortedMethods}}
+                            <option id="{{this.sortedMethods}}" value="{{this.method}}">{{this.method}}</option>
+                        {{/each}}
+                    </select>
+                    <label>Способ: </label><h6 id="methodId"></h6>
+                </div>
+                <div class="input-field col s6">
+                    <select name="subjectArea">
+                        <option value="" disabled selected>Выберите область</option>
+                        {{#each sortedAreas}}
+                            <option id="{{this.subjectArea}}" value="{{this.subjectArea}}">{{this.subjectArea}}</option>
+                        {{/each}}
+                    </select>
+                    <label>Область: </label><h6 id="subjectAreaId"></h6>
+                </div>
+            </div>
+            <div class="row">
+                <label>Сортировка</label>
+                <p>
+                    <label>
+                        <input name="sortBy" value="question" type="radio" id="questionSort"/>
+                        <span>Формула смысла</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="sortBy" value="answer" type="radio" id="answerSort"/>
+                        <span>Знак</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="sortBy" value="func" type="radio" id="funcSort"/>
+                        <span>Функция</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="sortBy" value="method" type="radio" id="methodSort"/>
+                        <span>Способ</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="sortBy" value="subjectArea" type="radio" id="subjectAreaSort"/>
+                        <span>Область</span>
+                    </label>
+                </p>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Применить
+                <i class="material-icons right">adjust</i>
+            </button>
+        </form>
+    </div>
+    <form class="clear" action="/clear" method="post">
+        <button class="btn waves-effect waves-light pink lighten-1" type="submit">Отчистить
+            <i class="material-icons right">layers_clear</i>
+        </button>
+    </form>
+    <br>
+    <!--    <img src="images/book.png" alt="">-->
+    <h6><i class="tiny material-icons">assignment</i>Найдено записей: <span class="bold">{{length}}</span></h6>
+    {{#if success}}
+        <a class="white-text" href="/create">
+            <button class="btn waves-effect waves-light blue" type="submit">Создать запись
+            </button>
+        </a>
+    {{/if}}
+    <br>
+    <hr>
+    <div class="scroll">
+        {{#each pageArr}}
+            <a class="page" id="{{this}}" href="?page={{this}}">{{this}}</a>
+        {{/each}}
+    </div>
+    <hr>
+    <br>
+    <div class="responsive-table">
+        <table class="striped">
+            <thead>
+            <tr>
+                <th>Знак</th>
+                <th>Формула смысла</th>
+                <th>Функция</th>
+                <th>Способ</th>
+                <th>Область</th>
+                {{#if success}}
+                    <th>Ред.</th>
+                    <th>Удалить</th>
+                {{/if}}
+            </tr>
+            </thead>
+
+            <tbody>
+            {{#if success}}
+                {{#each sortedData}}
+                    <tr>
+                        <td>{{this.answer}}</td>
+                        <td>{{this.question}}</td>
+                        <td>{{this.function}}</td>
+                        <td>{{this.method}}</td>
+                        <td>{{this.subjectArea}}</td>
+                        <td><a href="/edit/{{this.idItem}}"><i class="material-icons left">edit</i></a></td>
+                        <td><a href="/delete/{{this.idItem}}"><i class="material-icons left">delete</i></a></td>
+                    </tr>
+                {{/each}}
+            {{else}}
+                {{#each sortedData}}
+                    <tr>
+                        <td>{{this.answer}}</td>
+                        <td>{{this.question}}</td>
+                        <td>{{this.function}}</td>
+                        <td>{{this.method}}</td>
+                        <td>{{this.subjectArea}}</td>
+                    </tr>
+                {{/each}}
+            {{/if}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    let activePage = document.getElementById({{currentPage}});
+    let elementClasses = activePage.classList;
+    let result = elementClasses.add('active-page');
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let elements = document.querySelectorAll('select');
+        M.FormSelect.init(elements);
+    });
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const sortBy = urlParams.get('sortBy');
+    const sortByName = sortBy + 'Sort';
+    const sortId = document.getElementById(sortByName);
+    if (sortId !== null) {
+        sortId.setAttribute("checked", "checked");
+    }
+
+    const question = urlParams.get('question');
+    const questionId = document.getElementById('question');
+    if (question !== null) {
+        questionId.setAttribute('value', `${question}`);
+    }
+
+    const answer = urlParams.get('answer');
+    const answerId = document.getElementById('answer');
+    if (answer !== null) {
+        answerId.setAttribute('value', `${answer}`);
+    }
+
+    const func = urlParams.get('func');
+    const funcId = document.getElementById(func);
+    if (func !== null) {
+        funcId.setAttribute("checked", "checked");
+    }
+
+    const pageArr = [{{pageArr}}]
+    for (let i = 0; i <= pageArr.length; i++) {
+        let link = window.document.getElementById(`${i + 1}`);
+        let href = link.getAttribute('href');
+        let search = window.location.search;
+        let pageNumber = urlParams.get('page');
+        let page = `page=${pageNumber}`;
+        search = search.replace(`${page}&`, "")
+        let fixedSearch = search.replace("?", "&");
+        href = href + fixedSearch
+        link.setAttribute("href", href)
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+.center {
+    text-align: center;
+}
+.bold {
+    font-weight: bold;
+}
+.responsive-table {
+    overflow-x:auto;
+}
+.scroll {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.scroll a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+.scroll a:hover {
+    background-color: lightcoral;
+    color: white;
+    border-radius: 5px;
+}
+.active-page {
+    background-color: lightcoral;
+    color: white!important;
+    border-radius: 5px;
+}
+.clear {
+    margin-left: 13px;
+}
+.logs {
+    float: right;
+    margin-right: 20px;
+}
+@media only screen and (max-width: 377px) {
+    .mobile-btn {
+        font-size: 0;
+    }
+}
